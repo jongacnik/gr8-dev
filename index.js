@@ -20,7 +20,7 @@ const styles = () => {
 const grid = opts => {
   const options = Object.assign({}, opts, {
     cols: 12,
-    wrapClass: 'px4',
+    wrapClass: 'px2',
     colClass: 'p2',
     visible: false
   })
@@ -29,7 +29,7 @@ const grid = opts => {
     const wrap = document.createElement('div')
     wrap.classList.add('fl', 'c1', 'h100', options.colClass)
     const inner = document.createElement('div')
-    inner.classList.add('h100', 'w100')
+    inner.classList.add('h100', 'w100', options.wrapClass)
     wrap.appendChild(inner)
     return wrap
   })
@@ -64,15 +64,11 @@ const onKeydown = e => {
   if (e.keyCode == 68) document.body.classList.toggle('dev')
 }
 
-// auto init
-styles()
-grid()
-window.addEventListener('keydown', onKeydown)
-
-// exports.start = () => {
-//   window.addEventListener('keydown', onKeydown)
-//   return exports
-// }
+module.exports = opts => {
+  styles()
+  grid(opts)
+  window.addEventListener('keydown', onKeydown)
+}
 
 exports.stop = () => {
   window.removeEventListener('keydown', onKeydown)
