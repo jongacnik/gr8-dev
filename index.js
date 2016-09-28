@@ -29,14 +29,14 @@ const grid = opts => {
     const wrap = document.createElement('div')
     wrap.classList.add('fl', 'c1', 'h100', options.colClass)
     const inner = document.createElement('div')
-    inner.classList.add('h100', 'w100', options.wrapClass)
+    inner.classList.add('h100', 'w100')
     wrap.appendChild(inner)
     return wrap
   })
 
   const makeGridEl = () => {
     const wrap = document.createElement('div')
-    wrap.classList.add('psf', 'w100', 'h100', 't0', 'l0', 'pen', 'dev')
+    wrap.classList.add('psf', 'w100', 'h100', 't0', 'l0', 'pen', 'dev', options.wrapClass)
     wrap.style.display = options.visible ? 'block' : 'none'
     cols.forEach(col => {
       wrap.appendChild(col)
