@@ -18,12 +18,12 @@ const styles = () => {
 }
 
 const grid = opts => {
-  const options = Object.assign({}, opts, {
+  const options = Object.assign({}, {
     cols: 12,
     wrapClass: 'px2',
     colClass: 'p2',
     visible: false
-  })
+  }, opts)
 
   const cols = [...Array(options.cols).keys()].map(col => {
     const wrap = document.createElement('div')
