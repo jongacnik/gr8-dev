@@ -1,76 +1,52 @@
-let gridEl
+var x = require('xtend')
+var h = require('bel')
+var gridEl
 
-const styles = () => {
-  let node = document.createElement('style')
-  node.innerHTML = `
-    .dev1 { outline: 1px solid #912eff }
-    .dev2 { outline: 1px solid #5497ff }
-    .dev3 { outline: 1px solid #51feff }
-    .dev4 { outline: 1px solid #ff0000 }
-    .dev5 { outline: 1px solid #00ff00 }
-    .dev * { outline: 1px solid #912eff }
-    .dev * > * { outline: 1px solid #5497ff }
-    .dev * > * > * { outline: 1px solid #51feff }
-    .dev * > * > * > * { outline: 1px solid #ff0000 }
-    .dev * > * > * > * > * { outline: 1px solid #00ff00 }`
-  document.head.appendChild(node)
-  return exports
-}
-
-const grid = opts => {
-  const options = Object.assign({}, {
-    cols: 12,
-    wrapClass: 'px2',
-    colClass: 'p2',
+function grid (opts) {
+  var options = x({
+    wrapClass: 'px1',
+    wrapAttrs: {},
+    colClass: 'p1',
+    colAttrs: {},
     visible: false
   }, opts)
 
-  const cols = [...Array(options.cols).keys()].map(col => {
-    const wrap = document.createElement('div')
-    wrap.classList.add('fl', 'c1', 'h100', options.colClass)
-    const inner = document.createElement('div')
-    inner.classList.add('h100', 'w100')
-    wrap.appendChild(inner)
-    return wrap
-  })
-
-  const makeGridEl = () => {
-    const wrap = document.createElement('div')
-    wrap.classList.add('psf', 'w100', 'h100', 't0', 'l0', 'pen', 'dev', options.wrapClass)
-    wrap.style.display = options.visible ? 'block' : 'none'
-    cols.forEach(col => {
-      wrap.appendChild(col)
-    })
-    return wrap
-  }
-
-  gridEl = makeGridEl()
+  gridEl = h`
+    <div class="${options.visible ? 'db' : 'dn'}" data-gr8-dev>
+      <div
+        class="psf w100 h100 t0 l0 pen dev ${options.wrapClass}"
+        ${options.wrapAttrs}
+      >
+        ${[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map(c => h`
+          <div class="fl h100 c1 ${options.colClass}" ${options.colAttrs}>
+            <div class="h100 w100"></div>
+          </div>`
+        )}
+      </div>
+    </div>
+  `
 
   document.body.appendChild(gridEl)
   return exports
 }
 
-const toggle = () => {
+function toggle () {
   if (!gridEl) return
-  if (gridEl.style.display !== 'none') {
-    gridEl.style.display = 'none'
-  } else {
-    gridEl.style.display = 'block'
-  }
+  gridEl.classList.toggle('dn')
+  gridEl.classList.toggle('db')
 }
 
-const onKeydown = e => {
+function handleKeydown (e) {
   if (e.keyCode == 87) toggle()
   if (e.keyCode == 68) document.body.classList.toggle('dev')
 }
 
-module.exports = opts => {
-  styles()
+exports.attach = function (opts) {
   grid(opts)
-  window.addEventListener('keydown', onKeydown)
+  window.addEventListener('keydown', handleKeydown)
 }
 
-exports.stop = () => {
-  window.removeEventListener('keydown', onKeydown)
-  return exports
+exports.detatch = function () {
+  document.body.removeChild(gridEl)
+  window.removeEventListener('keydown', handleKeydown)
 }

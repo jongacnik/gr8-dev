@@ -1,13 +1,26 @@
 {
   "name": "gr8dev",
-  "version": "0.0.0",
-  "description": "",
+  "version": "0.0.1",
+  "description": "ⓖⓡ⑧ Development grid",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "browserify test.js | tape-run"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "dependencies": {}
+  "author": "Jon Gacnik <jon@folderstudio.com> (http://jongacnik.com)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jongacnik/gr8-dev.git"
+  },
+  "homepage": "https://github.com/jongacnik/gr8-dev#readme",
+  "dependencies": {
+    "bel": "^4.5.1",
+    "xtend": "^4.0.1"
+  },
+  "devDependencies": {
+    "browserify": "^14.0.0",
+    "tape": "^4.6.3",
+    "tape-run": "^2.1.5"
+  }
 }
