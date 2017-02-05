@@ -10,7 +10,7 @@ npm i gr8-dev
 
 ```js
 var gr8 = require('gr8')
-var dev = require('gr8dev')
+var dev = require('gr8-dev')
 var rst = require('recsst')
 
 var css = gr8()
